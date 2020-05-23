@@ -1,6 +1,7 @@
 // Setting focus on the first text field
 document.getElementById('name').focus();
 
+
 // Other job role
 const jobRole = document.getElementById('title');
 const otherJobInput = document.getElementById('other-title');
@@ -10,13 +11,19 @@ otherJobInput.hidden = true;
 otherJobLabel.hidden = true;
 
 jobRole.addEventListener ('change', (e) => {
-    if ( e.target.value === 'other'){
+    
+    if ( e.target.value === 'other') {
+
         otherJobInput.hidden = false;
         otherJobLabel.hidden = false;
+
     } else {
+
         otherJobInput.hidden = true;
         otherJobLabel.hidden = true;
+
     }
+
 });
 
 // T-shirts
@@ -36,10 +43,10 @@ colorOptions[0].selected = true;
 designSelect.addEventListener('change', (e) => {
     //colorDiv.hidden = false;
     
-    for(let i = 0; i < designOptions.length; i++){
+    for(let i = 0; i < designOptions.length; i++) {
         const eventTarget = e.target.value;
 
-        if(eventTarget === designOptions[1].value){
+        if(eventTarget === designOptions[1].value) {
             colorOptions[1].selected = true;
 
             colorOptions[0].hidden = true;
@@ -50,7 +57,7 @@ designSelect.addEventListener('change', (e) => {
             colorOptions[5].hidden = true;
             colorOptions[6].hidden = true;
 
-        } else if (eventTarget === designOptions[2].value){
+        } else if (eventTarget === designOptions[2].value) {
             colorOptions[4].selected = true;
 
             colorOptions[0].hidden = true;
@@ -65,6 +72,33 @@ designSelect.addEventListener('change', (e) => {
 
     }
     
+});
+
+// Register for activities
+
+const activities = document.getElementsByClassName('activities');
+//const activitiesInput = document.querySelectorAll('.activities input');
+const totalCostDiv = document.createElement('div');
+activities[0].appendChild(totalCostDiv);
+let totalCost = 0;
+
+
+activities[0].addEventListener('change', (e) => {
+    const clicked = e.target;
+    activityCost = parseInt( clicked.getAttribute('data-cost') );
+
+    if(clicked.checked) {
+
+        totalCost += activityCost;
+
+    } else {
+
+        totalCost -= activityCost;
+
+    }
+
+    totalCostDiv.textContent = `Total: $ ${totalCost}`;
+
 });
 
 
@@ -86,19 +120,6 @@ designSelect.addEventListener('change', (e) => {
 
 
 
-/******************************************** 
-const defaultOption = () => {
-    for (let i = 0; i < colorOptions.options.length; i++){
-        const please = RegExp(/Please/g);
-// innerText will not return the text of elements that are hidden with CSS (textContent will). 
-// Se non è stato selezionato nulla (!bang = false) allora tutto nascosto
-        if (please.test(colorOptions.options[i].innerText ===)) {
-           colorOptions.options[i].classList.add('is-hidden')
-        } else {
-// Se qualcosa è selezionato viene riportato l'elemento selezionato(selectedIndex)
-            colorOptions.selectedIndex = i
-        }
-    }
-}
-defaultOption()
-*************************************************/
+
+
+
