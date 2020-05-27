@@ -42,13 +42,13 @@ const designSelect = document.getElementById('design');
 const colorOptions = document.getElementById('color').options;
 const designOptions = document.getElementById('design').options;
 designOptions[0].hidden = true;
-// Creating a new option in the color menu
+// Creating a new option in the color menu.
 const pleaseSelect = document.createElement('option');
 pleaseSelect.value = '';
 pleaseSelect.innerHTML = 'Please select a T-shirt theme';
 colorSelect.insertBefore(pleaseSelect, colorOptions[0]);
 colorOptions[0].selected = true;
-// Initially hiding the color menu 
+// Initially hiding the color menu.
 colorDiv.hidden = true; 
 
 // When one of the two themes is selected, only the appropriate colors will appear in the menu.
@@ -199,6 +199,7 @@ const showErrorMessage = (divMsgId, errorMsg, target) => {
 /***Name validation***/
 
 const nameInput = document.getElementById('name');
+
 const nameValidation = () => {
     
     // This function uses one RegExp to test the name input.
@@ -226,6 +227,7 @@ nameInput.addEventListener('input', nameValidation);
 /***Email validation***/
 
 const emailInput = document.getElementById('mail');
+
 const emailValidation = () => {
 
     // This function uses one RegExp to test the email input.
@@ -253,6 +255,7 @@ emailInput.addEventListener('input', emailValidation);
 
 // If the user does not select any activities, an error message will appear.
 const activityValidation = () => {
+
    for(let i = 0; i < activitiesInput.length; i++) {
 
       if (activitiesInput[i].checked) {
