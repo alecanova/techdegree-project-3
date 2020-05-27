@@ -2,7 +2,10 @@
 document.getElementById('name').focus();
 
 
-// Other job role
+/************************************************
+              * OTHER JOB ROLE *
+************************************************/
+
 const jobRole = document.getElementById('title');
 const otherJobInput = document.getElementById('other-title');
 const otherJobLabel = document.querySelectorAll('label')[3];
@@ -26,7 +29,10 @@ jobRole.addEventListener ('change', (e) => {
 
 });
 
-// T-shirts
+/************************************************
+              * T-SHIRT SECTION *
+************************************************/
+
 const colorDiv = document.getElementById("colors-js-puns");
 const colorSelect = document.getElementById('color');
 const designSelect = document.getElementById('design');
@@ -38,15 +44,14 @@ pleaseSelect.value = '';
 pleaseSelect.innerHTML = 'Please select a T-shirt theme';
 colorSelect.insertBefore(pleaseSelect, colorOptions[0]);
 colorOptions[0].selected = true;
-//colorDiv.hidden = true;
+//colorDiv.hidden = true; ==> exceeds
 
 designSelect.addEventListener('change', (e) => {
-    //colorDiv.hidden = false;
+    //colorDiv.hidden = false; ==> exceeds
     
     for(let i = 0; i < designOptions.length; i++) {
-        const eventTarget = e.target.value;
 
-        if(eventTarget === designOptions[1].value) {
+        if(e.target.value === 'js puns') {
             colorOptions[1].selected = true;
 
             colorOptions[0].hidden = true;
@@ -57,7 +62,7 @@ designSelect.addEventListener('change', (e) => {
             colorOptions[5].hidden = true;
             colorOptions[6].hidden = true;
 
-        } else if (eventTarget === designOptions[2].value) {
+        } else if (e.target.value === 'heart js') {
             colorOptions[4].selected = true;
 
             colorOptions[0].hidden = true;
@@ -74,10 +79,12 @@ designSelect.addEventListener('change', (e) => {
     
 });
 
-// Register for activities
+/************************************************
+           * REGISTER FOR ACTIVITIES *
+************************************************/
 
 const activities = document.getElementsByClassName('activities');
-//const activitiesInput = document.querySelectorAll('.activities input');
+const activitiesInput = document.querySelectorAll('.activities input'); 
 const totalCostDiv = document.createElement('div');
 activities[0].appendChild(totalCostDiv);
 let totalCost = 0;
@@ -85,6 +92,7 @@ let totalCost = 0;
 
 activities[0].addEventListener('change', (e) => {
     const clicked = e.target;
+
     activityCost = parseInt( clicked.getAttribute('data-cost') );
 
     if(clicked.checked) {
@@ -99,9 +107,264 @@ activities[0].addEventListener('change', (e) => {
 
     totalCostDiv.textContent = `Total: $ ${totalCost}`;
 
+    for(let i = 0; i < activitiesInput.length; i++) {
+
+        clickedDayAndTime = clicked.getAttribute('data-day-and-time');
+        checkedDayAndTime = activitiesInput[i].getAttribute('data-day-and-time');
+
+        if ( clickedDayAndTime === checkedDayAndTime &&
+            clicked !== activitiesInput[i] ) {
+
+                if (clicked.checked) {
+
+                    activitiesInput[i].disabled = true;
+
+                } else {
+                   
+                    activitiesInput[i].disabled = false;
+
+                }
+
+            }
+
+    }
+
 });
 
 
+/************************************************
+                * PAYMENT SECTION *
+************************************************/
+
+const paymentSelect = document.getElementById('payment');
+const creditCardDiv = document.getElementById('credit-card');
+const paypalDiv = document.getElementById('paypal');
+const bitcoinDiv = document.getElementById('bitcoin');
+paymentSelect[0].hidden = true;
+paymentSelect[1].selected = true;
+paypalDiv.hidden = true;
+bitcoinDiv.hidden = true;
+
+paymentSelect.addEventListener('change', (e) => {
+
+        if (e.target.value === 'credit card') {
+
+            creditCardDiv.hidden = false;
+            paypalDiv.hidden = true;
+            bitcoinDiv.hidden = true;
+
+        } else if (e.target.value === 'paypal') {
+
+            creditCardDiv.hidden = true;
+            paypalDiv.hidden = false;
+            bitcoinDiv.hidden = true;
+
+
+        } else if (e.target.value === 'bitcoin') {
+
+            creditCardDiv.hidden = true;
+            paypalDiv.hidden = true;
+            bitcoinDiv.hidden = false;
+
+        }
+
+});
+
+/************************************************
+                * FORM VALIDATION *
+************************************************/
+
+/***Error message function***/
+
+const showErrorMessage = (divMsgId, errorMsg, target) => {
+
+    const divMsg = document.createElement('div');
+    divMsg.classList.add('error');
+    divMsg.id = divMsgId;
+    target.parentNode.insertBefore(divMsg, target);
+    document.getElementById(divMsgId).textContent = errorMsg;
+
+};
+
+/***Name validation***/
+
+const nameInput = document.getElementById('name');
+const nameValidation = () => {
+
+    const nameTest = /^([a-zA-Z ]){2,30}$/.test(nameInput.value);
+    
+    if (nameTest === true) {
+        
+        showErrorMessage('nameError', '', nameInput);
+        nameInput.style.borderColor = 'green';
+        return true;
+
+    } else {
+        
+        showErrorMessage('nameError', 'Please enter a valid name', nameInput);
+        nameInput.style.borderColor = 'red';
+        return false;
+    }
+
+};
+
+nameValidation();
+nameInput.addEventListener('input', nameValidation);
+
+
+/***Email validation***/
+
+const emailInput = document.getElementById('mail');
+const emailValidation = () => {
+
+    const emailTest = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(emailInput.value);
+
+    if (emailTest === true) {
+        
+        showErrorMessage('emailError', '', emailInput);
+        emailInput.style.borderColor = 'green';
+        return true;
+
+    } else {
+        
+        showErrorMessage('emailError', 'Please enter a valid email address', emailInput);
+        emailInput.style.borderColor = 'red';
+        return false;
+    }
+
+};
+
+emailValidation();
+emailInput.addEventListener('input', emailValidation);
+
+/***Activities validation***/
+
+const activityValidation = () => {
+   for(let i = 0; i < activitiesInput.length; i++) {
+
+      if (activitiesInput[i].checked) {
+
+        showErrorMessage('activitiesError', '', activities[0]);
+        return true;
+      
+      } 
+
+    }
+
+       showErrorMessage('activitiesError', 'Please select one or more activities', activities[0]);
+        return false;
+
+};
+
+activityValidation();
+activities[0].addEventListener('change', activityValidation);
+
+/***Credit Card validation***/
+
+const creditCardInput = document.getElementById('cc-num')
+
+const creditCardValidation = () => {
+
+    const ccTest1 = /^\d{13,16}$/.test(creditCardInput.value);
+    const ccTest2 = /^\d{1,12}$/.test(creditCardInput.value);
+    const ccTest3 = /^\d{17,}$/.test(creditCardInput.value);
+
+    if (ccTest1 === true) {
+
+        showErrorMessage('ccError', '', creditCardInput);
+        creditCardInput.style.borderColor = 'green';
+        return true;
+
+    } else if (ccTest2 === true || ccTest3 === true) {
+
+        showErrorMessage('ccError', 'Please enter a number that is between 13 and 16 digits long', creditCardInput);
+        creditCardInput.style.borderColor = 'red';
+        return false;
+
+    } else {
+
+        showErrorMessage('ccError', 'Please enter a valid credit card number', creditCardInput);
+        creditCardInput.style.borderColor = 'red';
+        return false;
+
+    }
+
+
+};
+
+creditCardValidation();
+creditCardInput.addEventListener('input', creditCardValidation);
+
+/***Zip code validation***/
+
+const zipCodeInput = document.getElementById('zip');
+
+const zipCodeValidation = () => {
+
+    const zipCodeTest1 = /^\d{5}$/.test(zipCodeInput.value);
+    const zipCodeTest2 = /^\d{1,4}$/.test(zipCodeInput.value);
+    const zipCodeTest3 = /^\d{6,}$/.test(zipCodeInput.value);
+
+    if (zipCodeTest1 === true) {
+
+        showErrorMessage('zipError','', zipCodeInput);
+        zipCodeInput.style.borderColor = 'green';
+        return true;
+
+    } else if (zipCodeTest2 === true || zipCodeTest3 === true) {
+
+        showErrorMessage('zipError','Please enter a number that is 5 digits long', zipCodeInput);
+        zipCodeInput.style.borderColor = 'red';
+        return false;
+
+    } else {
+
+        showErrorMessage('zipError','Please enter a valid zip code number', zipCodeInput);
+        zipCodeInput.style.borderColor = 'red';
+        return false;
+
+    }
+
+};
+
+zipCodeValidation();
+zipCodeInput.addEventListener('input', zipCodeValidation);
+
+/***Cvv code validation***/
+
+const cvvInput = document.getElementById('cvv');
+
+const cvvValidation = () => {
+
+    const cvvTest1 = /^\d{3}$/.test(cvvInput.value);
+    const cvvTest2 = /^\d{1,2}$/.test(cvvInput.value);
+    const cvvTest3 = /^\d{4,}$/.test(cvvInput.value);
+
+    if ( cvvTest1 === true) {
+
+        showErrorMessage('cvvError', '', cvvInput);
+        cvvInput.style.borderColor = 'green';
+        return true;
+
+    } else if (cvvTest2 === true || cvvTest3 === true) {
+
+        showErrorMessage('cvvError', 'Please enter a number that is 3 digits long', cvvInput);
+        cvvInput.style.borderColor = 'red';
+        return false;
+
+    } else {
+
+        showErrorMessage('cvvError', 'Please enter a valid cvv code number', cvvInput);
+        cvvInput.style.borderColor = 'red';
+        return false;
+
+    }
+};
+
+cvvValidation();
+cvvInput.addEventListener('input', cvvValidation);
+
+//***submit event listener***//lement could prevent the default submission behavior of the form
 
 
 
