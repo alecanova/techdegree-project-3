@@ -214,7 +214,7 @@ const nameValidation = () => {
     } else {
         
         showErrorMessage('nameError', 'Please enter a valid name', nameInput);
-        nameInput.style.borderColor = 'red';
+        nameInput.style.borderColor = '#5e97b0';
         return false;
     }
 
@@ -242,7 +242,7 @@ const emailValidation = () => {
     } else {
         
         showErrorMessage('emailError', 'Please enter a valid email address', emailInput);
-        emailInput.style.borderColor = 'red';
+        emailInput.style.borderColor = '#5e97b0';
         return false;
     }
 
@@ -296,13 +296,13 @@ const creditCardValidation = () => {
     } else if (ccTest2 === true || ccTest3 === true) {
 
         showErrorMessage('ccError', 'Please enter a number that is between 13 and 16 digits long', creditCardInput);
-        creditCardInput.style.borderColor = 'red';
+        creditCardInput.style.borderColor = '#5e97b0';
         return false;
 
     } else {
 
         showErrorMessage('ccError', 'Please enter a valid credit card number', creditCardInput);
-        creditCardInput.style.borderColor = 'red';
+        creditCardInput.style.borderColor = '#5e97b0';
         return false;
 
     }
@@ -334,13 +334,13 @@ const zipCodeValidation = () => {
     } else if (zipCodeTest2 === true || zipCodeTest3 === true) {
 
         showErrorMessage('zipError','Please enter a number that is 5 digits long', zipCodeInput);
-        zipCodeInput.style.borderColor = 'red';
+        zipCodeInput.style.borderColor = '#5e97b0';
         return false;
 
     } else {
 
         showErrorMessage('zipError','Please enter a valid zip code number', zipCodeInput);
-        zipCodeInput.style.borderColor = 'red';
+        zipCodeInput.style.borderColor = '#5e97b0';
         return false;
 
     }
@@ -371,13 +371,13 @@ const cvvValidation = () => {
     } else if (cvvTest2 === true || cvvTest3 === true) {
 
         showErrorMessage('cvvError', 'Please enter a number that is 3 digits long', cvvInput);
-        cvvInput.style.borderColor = 'red';
+        cvvInput.style.borderColor = '#5e97b0';
         return false;
 
     } else {
 
         showErrorMessage('cvvError', 'Please enter a valid cvv code number', cvvInput);
-        cvvInput.style.borderColor = 'red';
+        cvvInput.style.borderColor = '#5e97b0';
         return false;
 
     }
