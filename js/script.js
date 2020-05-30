@@ -193,7 +193,7 @@ const showErrorMessage = (divMsgId, errorMsg, target) => {
     divMsg.id = divMsgId;
     target.parentNode.insertBefore(divMsg, target);
     document.getElementById(divMsgId).textContent = errorMsg;
-
+    
 };
 
 /***Name validation***/
@@ -214,14 +214,15 @@ const nameValidation = () => {
     } else {
         
         showErrorMessage('nameError', 'Please enter a valid name', nameInput);
-        nameInput.style.borderColor = '#5e97b0';
+        nameInput.style.borderColor = 'red';
         return false;
     }
 
 };
 
-nameValidation();
-nameInput.addEventListener('input', nameValidation);
+//nameValidation();
+//nameInput.addEventListener('input', nameValidation);
+
 
 
 /***Email validation***/
@@ -242,14 +243,16 @@ const emailValidation = () => {
     } else {
         
         showErrorMessage('emailError', 'Please enter a valid email address', emailInput);
-        emailInput.style.borderColor = '#5e97b0';
+        emailInput.style.borderColor = 'red';
         return false;
     }
 
 };
 
-emailValidation();
-emailInput.addEventListener('input', emailValidation);
+//emailValidation();
+//emailInput.addEventListener('input', emailValidation);
+
+
 
 /***Activities validation***/
 
@@ -272,8 +275,9 @@ const activityValidation = () => {
 
 };
 
-activityValidation();
-activities[0].addEventListener('change', activityValidation);
+//activityValidation();
+//activities[0].addEventListener('change', activityValidation);
+
 
 /***Credit Card validation***/
 
@@ -296,13 +300,13 @@ const creditCardValidation = () => {
     } else if (ccTest2 === true || ccTest3 === true) {
 
         showErrorMessage('ccError', 'Please enter a number that is between 13 and 16 digits long', creditCardInput);
-        creditCardInput.style.borderColor = '#5e97b0';
+        creditCardInput.style.borderColor = 'red';
         return false;
 
     } else {
 
         showErrorMessage('ccError', 'Please enter a valid credit card number', creditCardInput);
-        creditCardInput.style.borderColor = '#5e97b0';
+        creditCardInput.style.borderColor = 'red';
         return false;
 
     }
@@ -310,8 +314,9 @@ const creditCardValidation = () => {
 
 };
 
-creditCardValidation();
-creditCardInput.addEventListener('input', creditCardValidation);
+//creditCardValidation();
+//creditCardInput.addEventListener('input', creditCardValidation);
+
 
 /***Zip code validation***/
 
@@ -334,21 +339,22 @@ const zipCodeValidation = () => {
     } else if (zipCodeTest2 === true || zipCodeTest3 === true) {
 
         showErrorMessage('zipError','Please enter a number that is 5 digits long', zipCodeInput);
-        zipCodeInput.style.borderColor = '#5e97b0';
+        zipCodeInput.style.borderColor = 'red';
         return false;
 
     } else {
 
         showErrorMessage('zipError','Please enter a valid zip code number', zipCodeInput);
-        zipCodeInput.style.borderColor = '#5e97b0';
+        zipCodeInput.style.borderColor = 'red';
         return false;
 
     }
 
 };
 
-zipCodeValidation();
-zipCodeInput.addEventListener('input', zipCodeValidation);
+//zipCodeValidation();
+//zipCodeInput.addEventListener('input', zipCodeValidation);
+
 
 /***Cvv code validation***/
 
@@ -371,28 +377,37 @@ const cvvValidation = () => {
     } else if (cvvTest2 === true || cvvTest3 === true) {
 
         showErrorMessage('cvvError', 'Please enter a number that is 3 digits long', cvvInput);
-        cvvInput.style.borderColor = '#5e97b0';
+        cvvInput.style.borderColor = 'red';
         return false;
 
     } else {
 
         showErrorMessage('cvvError', 'Please enter a valid cvv code number', cvvInput);
-        cvvInput.style.borderColor = '#5e97b0';
+        cvvInput.style.borderColor = 'red';
         return false;
 
     }
 };
 
-cvvValidation();
-cvvInput.addEventListener('input', cvvValidation);
+//cvvValidation();
+//cvvInput.addEventListener('input', cvvValidation);
+
 
 //***Submit event listener***//
 
 // Preventing the default submission behavior of the form.
 
-const form = document.querySelector('form');
+const submit = document.querySelector("button[type = 'submit']");
 
-form.addEventListener('submit', (e) => {
+submit.addEventListener('click', (e) => {
+
+    nameValidation();
+    emailValidation();
+    activityValidation();
+    creditCardValidation();
+    zipCodeValidation();
+    cvvValidation();
+
 
     if ( !nameValidation() ) {
         e.preventDefault();
